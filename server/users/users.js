@@ -67,8 +67,9 @@ userRouter.route('/:id')
             if(userIndex === -1) {
                 res.send();
             } else {
+                var deletedUser = users[userIndex];
                 users.splice(userIndex, 1);
-                res.json(users[userIndex]);
+                res.json(deletedUser);
             }
         }
     });

@@ -20,7 +20,7 @@ eventRouter.param('id', function(req, res, next, id) {
         return event.id == id;
     });
 
-    if(user){
+    if(event){
         req.event = event;
         next();
     } else {
@@ -48,8 +48,8 @@ eventRouter.route('/:id')
     .put(function(req, res) {
         var update = req.body;
 
-        var eventIndex = events.findIndex(function(user) {
-            return user.id === req.params.id;
+        var eventIndex = events.findIndex(function(event) {
+            return event.id === req.params.id;
         });
 
         if(eventIndex === -1){
@@ -68,8 +68,9 @@ eventRouter.route('/:id')
             if(eventIndex === -1) {
                 res.send();
             } else {
+                var deletedEvent = events[eventIndex];
                 events.splice(eventIndex, 1);
-                res.json(events[eventIndex]);
+                res.json(deletedEvent);
             }
         }
     });

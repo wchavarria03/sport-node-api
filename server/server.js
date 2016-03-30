@@ -1,10 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var port = 4001;
 
-var userRouter = require('./users');
-var eventRouter = require('./events');
+var userRouter = require('./users/users');
+var eventRouter = require('./events/events');
 
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
@@ -23,5 +22,5 @@ app.use(function(err, req, res, next){
     }
 });
 
-app.listen(port);
-console.log('Running on port '+ port + '!!');
+module.exports = app;
+
