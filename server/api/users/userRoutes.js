@@ -1,7 +1,7 @@
 /**
  * Created by Walter on 27/03/2016.
  */
-var userRouter = require('express').Router();
+var router = require('express').Router();
 
 var users = [];
 var id = 0;
@@ -14,7 +14,7 @@ var updateId = function updateId(req, res, next){
     next();
 };
 
-userRouter.param('id', function(req, res, next, id) {
+router.param('id', function(req, res, next, id) {
     var user = users.find(function(user){
         return user.id == id;
     });
@@ -28,7 +28,7 @@ userRouter.param('id', function(req, res, next, id) {
 });
 
 
-userRouter.route('/')
+router.route('/')
     .get(function(req, res) {
         res.json(users);
     })
@@ -39,7 +39,7 @@ userRouter.route('/')
     });
 
 
-userRouter.route('/:id')
+router.route('/:id')
     .get(function(req, res) {
         res.json(req.user || {});
     })
@@ -74,4 +74,4 @@ userRouter.route('/:id')
         }
     });
 
-module.exports = userRouter;
+module.exports = router;

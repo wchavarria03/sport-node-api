@@ -1,8 +1,7 @@
 /**
  * Created by Walter on 27/03/2016.
  */
-
-var eventRouter = require('express').Router();
+var router = require('express').Router();
 
 var events = [];
 var id = 0;
@@ -15,7 +14,7 @@ var updateId = function updateId(req, res, next){
     next();
 };
 
-eventRouter.param('id', function(req, res, next, id) {
+router.param('id', function(req, res, next, id) {
     var event = events.find(function(event){
         return event.id == id;
     });
@@ -29,7 +28,7 @@ eventRouter.param('id', function(req, res, next, id) {
 });
 
 
-eventRouter.route('/')
+router.route('/')
     .get(function(req, res) {
         res.json(events);
     })
@@ -40,7 +39,7 @@ eventRouter.route('/')
     });
 
 
-eventRouter.route('/:id')
+router.route('/:id')
     .get(function(req, res) {
         var event = req.event;
         res.json(event || {});
@@ -75,4 +74,4 @@ eventRouter.route('/:id')
         }
     });
 
-module.exports = eventRouter;
+module.exports = router;

@@ -1,26 +1,16 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var app = express();
+var api = require('./api/api');
 
-var userRouter = require('./users/users');
-var eventRouter = require('./events/events');
+//setup the middleware
+require('./middleware/appMiddleware')(app);
 
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json());
+//setup the api
+app.use('/api/', api);
+
+//setup the global error handling
 
 
-/*Routes*/
-app.use('/users', userRouter);
-app.use('/events', eventRouter);
-
-/*End Routes*/
-
-app.use(function(err, req, res, next){
-    if(err){
-        console.log(err.message);
-        res.status(500).send(err);
-    }
-});
-
+//export the api for testing
 module.exports = app;
 
