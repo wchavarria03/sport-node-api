@@ -3,20 +3,9 @@
  */
 var router = require('express').Router();
 
-var userRouter = require('./users/userRoutes');
-var eventRouter = require('./events/eventRoutes');
+router.use('/users', require('./users/userRoutes'));
+router.use('/events', require('./events/eventRoutes'));
+/*
 
-app.use('/users', userRouter);
-app.use('/events', eventRouter);
-
-
-
-
-app.use(function(err, req, res, next){
-    if(err){
-        console.log(err.message);
-        res.status(500).send(err);
-    }
-});
-
+*/
 module.exports = router;
