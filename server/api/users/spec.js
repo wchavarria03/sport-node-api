@@ -1,7 +1,7 @@
 /**
  * Created by wchavarria-as on 29/03/2016.
  */
-var app = require('../server');
+var app = require('../../server');
 var request = require('supertest');
 var chai = require('chai').expect;
 
@@ -9,7 +9,7 @@ describe('[USERS]', function(){
 
     it('should get all the users', function(done){
        request(app)
-           .get('/users')
+           .get('/api/users')
            .set('Accept', 'application/json')
            .expect('Content-Type', /json/)
            .expect(200)
@@ -21,7 +21,7 @@ describe('[USERS]', function(){
 
     it('should get an specific users', function(done){
         request(app)
-            .post('/users/')
+            .post('/api/users/')
             .send({
                 name: 'Testing Value'
             })
@@ -31,7 +31,7 @@ describe('[USERS]', function(){
             .end(function(err, resp){
                 var user = resp.body;
                 request(app)
-                    .get('/users/get/'+user.id)
+                    .get('/api/users/get/'+user.id)
                     .set('Accept','application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -46,7 +46,7 @@ describe('[USERS]', function(){
 
     it('should create an user', function(done){
         request(app)
-            .post('/users')
+            .post('/api/users')
             .send({
                 name: 'Testing Value'
             })
@@ -61,7 +61,7 @@ describe('[USERS]', function(){
 
     it('should delete an user', function(done){
         request(app)
-            .post('/users')
+            .post('/api/users')
             .send({
                 name: 'Testing Value'
             })
@@ -69,7 +69,7 @@ describe('[USERS]', function(){
             .end(function(err, resp){
                 var user = resp.body;
                 request(app)
-                    .delete('/users/'+user.id)
+                    .delete('/api/users/'+user.id)
                     .end(function(err, resp){
                         chai(resp.body).to.eql(user);
                         done();
@@ -79,7 +79,7 @@ describe('[USERS]', function(){
 
     it('should update an user', function(done){
         request(app)
-            .post('/users')
+            .post('/api/users')
             .send({
                 name: 'Testing Value'
             })
@@ -87,7 +87,7 @@ describe('[USERS]', function(){
             .end(function(err, resp){
                 var user = resp.body;
                 request(app)
-                    .put('/users/'+ user.id)
+                    .put('/api/users/'+ user.id)
                     .send({
                         name: 'Testing Value Updated'
                     })

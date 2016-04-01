@@ -4,7 +4,7 @@
 /**
  * Created by wchavarria-as on 29/03/2016.
  */
-var app = require('../server');
+var app = require('../../server');
 var request = require('supertest');
 var chai = require('chai').expect;
 

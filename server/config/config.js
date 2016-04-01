@@ -2,11 +2,8 @@
  * Created by wchavarria-as on 29/03/2016.
  */
 
-
-
 //default config object for our api
 var config = {
-
     dev: 'development',
     test: 'testing',
     prod: 'production',
@@ -20,17 +17,14 @@ process.env.NODE_ENV = process.env.NODE_ENV || config.dev;
 config.env = process.env.NODE_ENV;
 
 
+var envConfig;
 
-/*TODO*/
-
-
-var a ={  env: process.env.NODE_ENV || 'development',
-    logging: false,
-
-    secrets: {}
-};
-
-var envConfig = require('./' + config.env);
+try {
+    envConfig = require('./' + config.env);
+    envConfig = envConfig || {};
+} catch(e){
+    envConfig = {};
+}
 
 /*Lodash Assign*/
 Object.prototype.extend = function(obj) {
@@ -42,6 +36,7 @@ Object.prototype.extend = function(obj) {
 };
 /*End Lodash Assign*/
 
+/*Extend the default config object with the loaded config object*/
 config.extend(envConfig);
 
-module.exports = config || {};
+module.exports = config;
