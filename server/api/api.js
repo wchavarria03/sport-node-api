@@ -3,7 +3,7 @@
  */
 var router = require('express').Router();
 
-router.use('/users', require('./users/userRoutes'));
+router.use('/athletes', require('./athletes/athleteRoutes'));
 router.use('/events', require('./events/eventRoutes'));
 /*
 

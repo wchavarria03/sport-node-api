@@ -3,7 +3,7 @@
  */
 var router = require('express').Router();
 
-var users = [];
+var athletes = [];
 var id = 0;
 
 var updateId = function updateId(req, res, next){
@@ -15,12 +15,12 @@ var updateId = function updateId(req, res, next){
 };
 
 router.param('id', function(req, res, next, id) {
-    var user = users.find(function(user){
-        return user.id == id;
+    var athlete = athletes.find(function(athlete){
+        return athlete.id == id;
     });
 
-    if(user){
-        req.user = user;
+    if(athlete){
+        req.athlete = athlete;
         next();
     } else {
         res.send();
@@ -30,12 +30,12 @@ router.param('id', function(req, res, next, id) {
 
 router.route('/')
     .get(function(req, res) {
-        res.json(users);
+        res.json(athletes);
     })
     .post(updateId, function(req, res) {
-        var user = req.body;
-        users.push(user);
-        res.json(user);
+        var athlete = req.body;
+        athletes.push(athlete);
+        res.json(athlete);
     });
 
 
@@ -46,30 +46,30 @@ router.route('/:id')
     .put(function(req, res) {
         var update = req.body;
 
-        var userIndex = users.findIndex(function(user) {
-            return user.id === req.params.id;
+        var athleteIndex = athletes.findIndex(function(athlete) {
+            return athlete.id === req.params.id;
         });
 
-        if(userIndex === -1) {
+        if(athleteIndex === -1) {
             res.send();
         } else {
-            users[userIndex].name = update.name || users[userIndex].name;
-            res.json(users[userIndex]);
+            athletes[athleteIndex].name = update.name || athletes[athleteIndex].name;
+            res.json(athletes[athleteIndex]);
         }
 
     })
     .delete(function(req, res) {
         if(req.params.id) {
-            var userIndex = users.findIndex(function(user) {
-                return user.id === req.params.id;
+            var athleteIndex = athletes.findIndex(function(athlete) {
+                return athlete.id === req.params.id;
             });
 
-            if(userIndex === -1) {
+            if(athleteIndex === -1) {
                 res.send();
             } else {
-                var deletedUser = users[userIndex];
-                users.splice(userIndex, 1);
-                res.json(deletedUser);
+                var deletedAthlete = athletes[athleteIndex];
+                athletes.splice(athleteIndex, 1);
+                res.json(deletedAthlete);
             }
         }
     });

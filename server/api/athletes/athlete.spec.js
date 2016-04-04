@@ -5,11 +5,11 @@ var app = require('../../server');
 var request = require('supertest');
 var chai = require('chai').expect;
 
-describe('[USERS]', function(){
+describe('[ATHLETES]', function(){
 
-    it('should get all the users', function(done){
+    it('should get all the athletes', function(done){
        request(app)
-           .get('/api/users')
+           .get('/api/athletes')
            .set('Accept', 'application/json')
            .expect('Content-Type', /json/)
            .expect(200)
@@ -19,9 +19,9 @@ describe('[USERS]', function(){
            });
     });
 
-    it('should get an specific users', function(done){
+    it('should get an specific athlete', function(done){
         request(app)
-            .post('/api/users/')
+            .post('/api/athletes/')
             .send({
                 name: 'Testing Value'
             })
@@ -29,9 +29,9 @@ describe('[USERS]', function(){
             .expect('Content-Type', /json/)
             .expect(201)
             .end(function(err, resp){
-                var user = resp.body;
+                var athlete = resp.body;
                 request(app)
-                    .get('/api/users/get/'+user.id)
+                    .get('/api/athletes/get/'+athlete.id)
                     .set('Accept','application/json')
                     .expect('Content-Type', /json/)
                     .expect(200)
@@ -44,9 +44,9 @@ describe('[USERS]', function(){
 
 
 
-    it('should create an user', function(done){
+    it('should create an athlete', function(done){
         request(app)
-            .post('/api/users')
+            .post('/api/athletes')
             .send({
                 name: 'Testing Value'
             })
@@ -59,35 +59,35 @@ describe('[USERS]', function(){
             })
     });
 
-    it('should delete an user', function(done){
+    it('should delete an athlete', function(done){
         request(app)
-            .post('/api/users')
+            .post('/api/athletes')
             .send({
                 name: 'Testing Value'
             })
             .set('Accept', 'application/json')
             .end(function(err, resp){
-                var user = resp.body;
+                var athlete = resp.body;
                 request(app)
-                    .delete('/api/users/'+user.id)
+                    .delete('/api/athletes/'+athlete.id)
                     .end(function(err, resp){
-                        chai(resp.body).to.eql(user);
+                        chai(resp.body).to.eql(athlete);
                         done();
                     });
             });
     });
 
-    it('should update an user', function(done){
+    it('should update an athlete', function(done){
         request(app)
-            .post('/api/users')
+            .post('/api/athletes')
             .send({
                 name: 'Testing Value'
             })
             .set('Accept', 'application/json')
             .end(function(err, resp){
-                var user = resp.body;
+                var athlete = resp.body;
                 request(app)
-                    .put('/api/users/'+ user.id)
+                    .put('/api/athletes/'+ athlete.id)
                     .send({
                         name: 'Testing Value Updated'
                     })

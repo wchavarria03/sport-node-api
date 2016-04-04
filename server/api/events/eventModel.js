@@ -10,7 +10,17 @@ var EventSchema = new Schema({
         required: true
     },
     place: String,
-    description: String
+    description: String,
+
+    organizer:{
+        type: Schema.Types.ObjectId,
+        ref: 'organizer',
+        required: true
+    }/*,
+
+    activities: [
+        {type: Schema.Types.ObjectId, ref: 'activity'}
+    ]*/
 });
 
 module.exports = mongoose.model('event', EventSchema);
