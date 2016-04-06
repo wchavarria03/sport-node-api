@@ -40,8 +40,18 @@ exports.put = function(req, res, next) {
 
     var update = req.body;
 
-    /*ToChange - Walter*/
-    //_.merge(event, update);
+
+    /*Lodash Assign*/
+    Object.prototype.extend = function(obj) {
+        for (var i in obj) {
+            if (obj.hasOwnProperty(i)) {
+                this[i] = obj[i];
+            }
+        }
+    };
+    /*End Lodash Assign*/
+
+    event.extend(update);
 
     event.save(function(err, saved) {
         if (err) {
