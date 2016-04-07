@@ -3,7 +3,9 @@
  */
 
 var config = {
-    logging: false
+    db: {
+        url: 'mongodb://localhost/challengeSport-test'
+    }
 };
 
 module.exports = config;
