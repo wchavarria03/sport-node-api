@@ -3,18 +3,18 @@ var app = express();
 var api = require('./api/api');
 var err = require('./middleware/errorMiddleware');
 var config = require('./config/config');
-
-//setup the middleware
-require('./middleware/appMiddleware')(app);
-
+// db.url is different depending on NODE_ENV
 require('mongoose').connect(config.db.url);
 
-//setup the api
-app.use('/api', api);
+// setup the app middlware
+require('./middleware/appMiddlware')(app);
+
+// setup the api
+app.use('/api/', api);
+// set up global error handling
 
 //setup the global error handling
 app.use(err());
 
-//export the api for testing
+// export the app for testing
 module.exports = app;
-
