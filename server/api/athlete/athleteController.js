@@ -2,10 +2,11 @@
  * Created by Walter on 04/04/2016.
  */
 var Athlete = require('./athleteModel');
+var _ = require('lodash');
 
-/*
+
 exports.params = function (req, res, next, id) {
-    Event.findById(id)
+    Athlete.findById(id)
         .then(function(athlete){
             if(!athlete){
                 next(new Error('No Activity with that id'))
@@ -19,7 +20,7 @@ exports.params = function (req, res, next, id) {
 };
 
 exports.get = function(req, res, next) {
-    Event.find({})
+    Athlete.find({})
         .then(function(athletes){
             res.json(athletes);
         }, function(err){
@@ -37,18 +38,7 @@ exports.put = function(req, res, next) {
 
     var update = req.body;
 
-
-    /!*Lodash Assign*!/
-    Object.prototype.extend = function(obj) {
-        for (var i in obj) {
-            if (obj.hasOwnProperty(i)) {
-                this[i] = obj[i];
-            }
-        }
-    };
-    /!*End Lodash Assign*!/
-
-    athlete.extend(update);
+    _.merge(athlete, update);
 
     Athlete.save(function(err, saved) {
         if (err) {
@@ -80,4 +70,4 @@ exports.delete = function(req, res, next) {
         }
     });
 };
-*/
+

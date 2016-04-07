@@ -7,7 +7,7 @@ var config = require('./config/config');
 require('mongoose').connect(config.db.url);
 
 // setup the app middlware
-require('./middleware/appMiddlware')(app);
+require('./middleware/appMiddleware')(app);
 
 // setup the api
 app.use('/api/', api);

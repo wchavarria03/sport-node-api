@@ -1,18 +1,16 @@
 /**
  * Created by Walter on 04/04/2016.
  */
-var Event = require('./eventModel');
+var Organizer = require('./organizerModel');
 var _ = require('lodash');
 
 exports.params = function (req, res, next, id) {
-    Event.findById(id)
-        .populate('organizer')
-        .exec()
-        .then(function(event){
-            if(!event){
-                next(new Error('No Event with that id'))
+    Organizer.findById(id)
+        .then(function(organizer){
+            if(!organizer){
+                next(new Error('No Organizer with that id'))
             } else {
-                req.event = event;
+                req.organizer = organizer;
                 next();
            }
         }, function(err){
@@ -21,29 +19,28 @@ exports.params = function (req, res, next, id) {
 };
 
 exports.get = function(req, res, next) {
-    Event.find({})
-        .populate('organizer')
-        .exec()
-        .then(function(events){
-            res.json(events);
+    console.log(Organizer);
+    Organizer.find({})
+        .then(function(organizers){
+            res.json(organizers);
         }, function(err){
             next(err);
         });
 };
 
 exports.getOne = function(req, res, next) {
-    var user = req.user;
-    res.json(user);
+    var organizer = req.organizer;
+    res.json(organizer);
 };
 
 exports.put = function(req, res, next) {
-    var event = req.user;
+    var organizer = req.organizer;
 
     var update = req.body;
 
-    _.merge(event, update);
+    _.merge(organizer, update);
 
-    event.save(function(err, saved) {
+    Organizer.save(function(err, saved) {
         if (err) {
             next(err);
         } else {
@@ -54,18 +51,18 @@ exports.put = function(req, res, next) {
 
 
 exports.post = function(req, res, next) {
-    var newEvent = req.body;
+    var newOrganizer = req.body;
 
-    Event.create(newEvent)
-        .then(function(event) {
-            res.json(event);
+    Organizer.create(newOrganizer)
+        .then(function(organizer) {
+            res.json(organizer);
         }, function(err) {
             next(err);
         });
 };
 
 exports.delete = function(req, res, next) {
-    req.event.remove(function(err, removed) {
+    req.organizer.remove(function(err, removed) {
         if (err) {
             next(err);
         } else {

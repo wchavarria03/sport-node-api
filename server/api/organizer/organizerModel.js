@@ -9,7 +9,8 @@ var OrganizerSchema = new Schema({
         type: String,
         required: true
     },
-    description: String
+    user: String,
+    password: String
 });
 
 module.exports = mongoose.model('organizer', OrganizerSchema);
