@@ -19,7 +19,6 @@ exports.params = function (req, res, next, id) {
 };
 
 exports.get = function(req, res, next) {
-    console.log(Organizer);
     Organizer.find({})
         .then(function(organizers){
             res.json(organizers);

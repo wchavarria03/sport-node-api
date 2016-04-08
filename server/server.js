@@ -11,7 +11,6 @@ require('./middleware/appMiddleware')(app);
 
 // setup the api
 app.use('/api/', api);
-// set up global error handling
 
 //setup the global error handling
 app.use(err());
