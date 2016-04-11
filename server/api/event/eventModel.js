@@ -9,18 +9,24 @@ var EventSchema = new Schema({
         type: String,
         required: true
     },
-    place: String,
+    type: String,
+    category: String,
     description: String,
-
+    date : {
+        type : Date,
+        default: Date.now
+    },
+    time : {
+        type : Date,
+        default: Date.now
+    },
+    place: String,
     organizer:{
         type: Schema.Types.ObjectId,
         ref: 'organizer',
         required: true
-    }/*,
-
-    activities: [
-        {type: Schema.Types.ObjectId, ref: 'activity'}
-    ]*/
+    },
+    activities : [{ type: Schema.Types.ObjectId, ref: 'activity' }]
 });
 
 module.exports = mongoose.model('event', EventSchema);

@@ -3,13 +3,15 @@
  */
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var bcrypt = require('bcrypt');
 
 var OrganizerSchema = new Schema({
-    name: {
+    name: String,
+    username: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
-    user: String,
     password: {
         type: String,
         required: true
@@ -25,24 +27,30 @@ OrganizerSchema.pre('save', function(next){
     next();
 });
 
-UserSchema.methods = {
+OrganizerSchema.methods = {
     //check the password on signin
     authenticate: function(plainTextPword){
         return bcrypt.compareSync(plainTextPword, this.password);
     },
 
-    encryptPassword: function(){
-        if(!planTextPword){
+    encryptPassword: function(plainTextPword){
+        if(!plainTextPword){
             return '';
         } else {
             var salt = bcrypt.genSaltSync(10);
             return bcrypt.hashSync(plainTextPword, salt);
         }
 
+    },
+
+    toJson: function(){
+        var obj = this.toObject();
+        delete obj.password;
+        return obj;
     }
+};
 
 
-}
 
 
 module.exports = mongoose.model('organizer', OrganizerSchema);
