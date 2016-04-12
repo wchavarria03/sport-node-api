@@ -20,6 +20,7 @@ var EventSchema = new Schema({
         type : Date,
         default: Date.now
     },
+    status: Boolean,
     place: String,
     organizer:{
         type: Schema.Types.ObjectId,

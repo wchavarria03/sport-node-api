@@ -4,10 +4,10 @@ var config = {
     dev: 'development',
     test: 'testing',
     prod: 'production',
-    port: process.env.PORT || 4002,
+    port: process.env.PORT || 3000,
     expireTime: 24 * 60 * 10,
     secrets: {
-        jwt: process.env.JWT || 'gumball'
+        jwt: process.env.JWT || 'secretsecret'
     }
 };
 

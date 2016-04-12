@@ -10,6 +10,9 @@ var ActivitySchema = new Schema({
         required: true
     },
     description: String,
+    capacity: Number,
+    distance: String,
+    price: String,
     event: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'event'

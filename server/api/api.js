@@ -6,6 +6,7 @@ router.use('/athletes', require('./athlete/athleteRoutes'));
 router.use('/events', require('./event/eventRoutes'));
 router.use('/activities', require('./activity/activityRoutes'));
 router.use('/organizers', require('./organizer/organizerRoutes'));
+router.use('/users', require('./user/userRoutes'));
 
 
 module.exports = router;

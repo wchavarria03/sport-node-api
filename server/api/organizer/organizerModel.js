@@ -7,6 +7,17 @@ var bcrypt = require('bcrypt');
 
 var OrganizerSchema = new Schema({
     name: String,
+    email: {
+        type: String,
+        required: true,
+        unique : true
+    },
+    phone1:{
+        type: Number,
+        required: true
+    },
+    phone2:Number,
+    organizerType : String,
     username: {
         type: String,
         required: true,
