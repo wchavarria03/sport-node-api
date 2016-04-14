@@ -15,7 +15,8 @@ var ActivitySchema = new Schema({
     price: String,
     event: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'event'
+        ref: 'event',
+        required: true
     }
 
 });
