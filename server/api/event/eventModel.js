@@ -24,7 +24,7 @@ var EventSchema = new Schema({
     place: String,
     organizer:{
         type: Schema.Types.ObjectId,
-        ref: 'organizer',
+        ref: 'user',
         required: true
     },
     activities : [{ type: Schema.Types.ObjectId, ref: 'activity' }]

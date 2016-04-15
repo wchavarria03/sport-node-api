@@ -31,7 +31,12 @@ var AthleteSchema = new Schema({
     password: {
         type: String,
         required:true
-    }
+    },
+    event:{
+        type: Schema.Types.ObjectId,
+        ref: 'event',
+        required: true
+    },
 });
 
 AthleteSchema.pre('save', function(next){
