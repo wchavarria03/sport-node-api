@@ -26,7 +26,13 @@ var UserSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        validate: [
+            function(password) {
+                return password.length >= 6;
+            },
+            'Password should be at least 6 characters'
+        ]
     },
     isOrganizer: {
         type: Boolean,
@@ -34,29 +40,37 @@ var UserSchema = new Schema({
     }
 });
 
-UserSchema.pre('save', function(next){
-    if(!this.isModified('password')){
-        return next();
-    }
-
-    if (this.isOrganizer == true) {
+UserSchema.pre('validate', function(next){
+    /*if (this.isOrganizer == true) {
         if(!this.name || !this.email || !this.phone1 ) {
             if(!this.name) {
-                next(new Error("Name field required"));
+                this.invalidate('name', 'Name field required');
+                //next(new Error("Name field required"));
             } else if(!this.email) {
-                next(new Error("Email field required"));
+                this.invalidate('email', 'Email field required');
+                //next(new Error("Email field required"));
             } else if(!this.phone1) {
-                next(new Error("Phone1 field required"));
+                this.invalidate('phone1', 'Phone1 field required');
+                //next(new Error("Phone1 field required"));
             }
         }
     } else if(this.isOrganizer == false) {
         if (!this.birthday || !this.genre) {
             if(!this.birthday) {
-                next(new Error("Birthday field required"));
+                this.invalidate('birthday', 'Birthday field required');
+                //next(new Error("Birthday field required"));
             } else if(!this.genre) {
-                next(new Error("Genre field required"));
+                this.invalidate('genre', 'Genre field required');
+                //next(new Error("Genre field required"));
             }
         }
+    }*/
+    next();
+});
+
+UserSchema.pre('save', function(next){
+    if(!this.isModified('password')){
+        return next();
     }
 
     this.password = this.encryptPassword(this.password);
