@@ -35,7 +35,11 @@ exports.getFreshUser = function() {
                     // it was a JWT from some other source
                     //res.status(401).send('Unauthorized');
                     //next(new Error('Unauthorized'));
-                    res.status(400).send([{status:400, message: messages.auth_unAuthorized.message, code: messages.auth_unAuthorized.code}]);
+                    res.status(400).send(
+                        {
+                            errors: [{status:400, message: messages.auth_unAuthorized.message, code: messages.auth_unAuthorized.code}]
+                        }
+                    );
                 } else {
                     // update req.user with fresh user from
                     // stale token data
@@ -56,7 +60,11 @@ exports.verifyUser = function() {
         // if no username or password then send
         if (!username || !password) {
             //next(new Error('You need a username and password'));
-            res.status(400).send([{status:400, message: messages.auth_needUserPass.message, code: messages.auth_needUserPass.code}]);
+            res.status(400).send(
+                {
+                    errors: [{status:400, message: messages.auth_needUserPass.message, code: messages.auth_needUserPass.code}]
+                }
+            );
             //res.status(400).send('You need a username and password');
             return;
         }
@@ -66,13 +74,21 @@ exports.verifyUser = function() {
         User.findOne({username: username})
             .then(function(user) {
                 if (!user) {
-                    res.status(401).send([{status:401, message: messages.auth_noUser.message, code: messages.auth_noUser.code}]);
+                    res.status(401).send(
+                        {
+                            errors : [{status:401, message: messages.auth_noUser.message, code: messages.auth_noUser.code}]
+                        }
+                    );
                     //res.status(401).send('No user with the given username');
                 } else {
                     // checking the passowords here
                     if (!user.authenticate(password)) {
                         //next(new Error('Wrong password'));
-                        res.status(401).send([{status:401, message: messages.auth_wrongPass.message, code: messages.auth_wrongPass.code}]);
+                        res.status(401).send(
+                            {
+                                errors: [{status:401, message: messages.auth_wrongPass.message, code: messages.auth_wrongPass.code}]
+                            }
+                        );
                         //res.status(401).send('Wrong password');
                     } else {
                         // if everything is good,

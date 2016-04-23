@@ -25,19 +25,19 @@ exports.get = function(req, res, next) {
         .populate('organizer')
         .exec()
         .then(function(events){
-            res.json(events);
+            res.json({'events':events});
         }, function(err){
             next(err);
         });
 };
 
 exports.getOne = function(req, res, next) {
-    var user = req.user;
-    res.json(user);
+    var event = req.event;
+    res.json({'events':event});
 };
 
 exports.put = function(req, res, next) {
-    var event = req.user;
+    var event = req.event;
 
     var update = req.body;
 
@@ -47,7 +47,7 @@ exports.put = function(req, res, next) {
         if (err) {
             next(err);
         } else {
-            res.json(saved);
+            res.json({'events':saved});
         }
     })
 };
@@ -58,7 +58,7 @@ exports.post = function(req, res, next) {
 
     Event.create(newEvent)
         .then(function(event) {
-            res.json(event);
+            res.json({'events':event});
         }, function(err) {
             next(err);
         });
@@ -69,7 +69,7 @@ exports.delete = function(req, res, next) {
         if (err) {
             next(err);
         } else {
-            res.json(removed);
+            res.json({'events':removed});
         }
     });
 };

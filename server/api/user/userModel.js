@@ -12,7 +12,13 @@ var UserSchema = new Schema({
     },
     email: {
         type: String,
-        maxlength:50
+        maxlength:50,
+        validate: {
+            validator: function(v) {
+                return /^.*@.*.com$/.test(v);
+            },
+            message: '{VALUE} is not a valid email format!'
+        }
     },
     birthday: Date,
     genre: Boolean,

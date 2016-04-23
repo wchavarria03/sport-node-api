@@ -25,7 +25,7 @@ exports.get = function(req, res, next) {
         .select('-password')
         .exec()
         .then(function(users){
-            res.json(users);
+            res.json({'users': users});
         }, function(err){
             next(err);
         });
@@ -33,7 +33,7 @@ exports.get = function(req, res, next) {
 
 exports.getOne = function(req, res, next) {
     var user = new User(req.user);
-    res.json(user);
+    res.json({'users': user});
 };
 
 exports.put = function(req, res, next) {
@@ -48,7 +48,7 @@ exports.put = function(req, res, next) {
         if (err) {
             next(err);
         } else {
-            res.json(saved);
+            res.json({'users': saved});
         }
     })
 };
@@ -72,11 +72,11 @@ exports.delete = function(req, res, next) {
         if (err) {
             next(err);
         } else {
-            res.json(removed);
+            res.json({'users': removed});
         }
     });
 };
 
 exports.me = function(req, res, next) {
-    res.json(req.user);
+    res.json({'users': req.user});
 };
